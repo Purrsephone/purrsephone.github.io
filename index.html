@@ -1,201 +1,161 @@
-<html>
-    <head>
-        <title> MemeChat</title>
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-    </head>
-    
+<!DOCTYPE HTML>
+<html lang = "en"> 
+<!-- Submitted around 9:40 PM on July 9, 2019 !-->
+ 
+<head>
+    <meta charset="utf-8" /> 
+    <title> Nicole Avila</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
-
-<div id="memechat"> <p id="p">Meme Chat </p><p id="pr"> By RhymBil</p></div> 
-<br>
-<br>
-<div id="holder">
-    <form id="messageForm">
-                        
-
-            <input type="text" id="messageInput" placeholder="Type..."/>
-            <button type="submit"  id="btn" onclick="hidel()"> Send </button>
-
-    </form>
-    <div class="chat" id="chat" style="overflow-y:scroll; height:450px;">
-
+ <style>
+ @charset "UTF-8";
+body {
+    margin:0;
+    padding:0;
+    background-color: rgb(186,218,85);
+    text-align: center;
     
-<div id="messageBox">
-
-</div>
-</div>
-<button type="submit"  id="btn1" onclick="showl()"> Show All </button>
-
-
-</body>
-
-
-
-
-
-
-<script>
-$(function(){
-var socket = io.connect();  //connects to socket
-var $messageForm = $("#messageForm"); //ref to the div message form
-var $messageInput = $("#messageInput"); //ref to input box with id message
-var $chat = $("#chat"); //ref to div chat
-var test = $messageInput.val("");
-
-$messageForm.submit(function(e){
-e.preventDefault();
-socket.emit("send meme message", $messageInput.val());
-$messageInput.val("");
-
-
-});
-socket.on("new meme message", function(data){
-
-
-if(data.msg.length > 0){
-$chat.append('<br>'  +'<div id="circle"> ' + '<textarea id="t" readonly>' + data.msg + '</textarea>'+' </div>' + '<br>' );
 }
-});
-
-});
-
-showlog = false;
-window.setInterval(function() {
-if(showlog == false){
-  var chat = document.getElementById("chat");
-  chat.scrollTop = chat.scrollHeight;
-  }
-}, 4);
-
-function showl(){
-showlog = true;
-
+h1, h2, h3{
+    color: white;
+    text-align:center;
 }
-function hidel(){
-var chat = document.getElementById("chat");
-  chat.scrollTop = chat.scrollHeight;
-showlog = false;
+.content {
+    margin-top: 10px;
 }
-
-</script>
-
-
-
-
-
-
-
-
-
-<style>
-body{
-background-color:#1abc9c;
-
+/*  this lines up the navigation bar */ 
+.sidebar{
+    height: 100%;
+    /*width: 160px;*/
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: darkgray
+    /*overflow-x: hidden; /*disables horizontal scroll */
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
-#p{
-margin-top:9px;
+/*
+ul {
+    background-color: black;
+    padding: 20px;
 }
-#pr{
-font-size:12px;
-margin-top:-34px;
-margin-left: 82px;
+*/
+li {
+    display: inline;
 }
-#memechat{
-background-color:#e74c3c;
-font-family: verdana;
-color:white;
-font-size: 30px;
-text-align:center;
-border: 2px solid white;
-border-radius:15px;
-width:190px;
-height:60px;
-
+/* The navigation menu links */
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  /*display: block;*/
 }
-
-#btn{
-background-color: white;
-font-size:15px;
-font-family: Verdana;
-color:black;
-width:56px;
-height:51px;
-text-align: center;
-margin-left:0px;
-border-radius:10px;
-outline:none;
-border: 2px solid #e74c3c;
-
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
 }
-#btn1{
-background-color: white;
-font-size:15px;
-font-family: Verdana;
-color:black;
-width:100px;
-height:40px;
-text-align: center;
-margin-left:1040px;
-margin-top: -40px;
-border-radius:10px;
-outline:none;
-border: 2px solid #e74c3c;
-
+.index {
+  margin-left: 160px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
 }
-#messageInput{
- margin-left: 532px;
-text-align:center;
-border-radius:10px;
-outline:none;
-shadow:none;
-font-size:15px;
-font-family: Verdana;
-color:black;
-width:250px;
-height:50px;
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+    
+.wrapper {
+    height:600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000; 
 }
-
-
-#t {
-text-align:left;
-font-size:15px;
-font-family: Verdana;
-color:black;
-border: 2px solid #f1c40f;
-  margin-top: -5px;
-  margin-left: 72px;
-  width:200px;
-  height:90px;
-  background-color:white;
-  border-radius:12px;
-  resize: none;
-      outline: none;
-
+/* This will make the size of the Matrix logo to be size of 200px, bolded, and with a font of Arial. */ 
+.txt {
+    color: #ffffff;
+    background:#000000;
+    font-size:200px;
+    font-weight: bold;
+    font-family: Arial;
+    text-transform: uppercase;
 }
-#chat{
-
-border: 6px solid white;
-width:700px;
-background-color:#e74c3c;
-margin:auto;
-border-radius: 10px;
+.txt::before {
+    content: 'I-House';
+    position: absolute;
+    mix-blend-mode: difference;
+    filter: blur(3px);
 }
-
-::-webkit-scrollbar { 
-display: none;
+.neon-wrapper {
+    display:inline-flex;
+    color:
+    filter: brightness(200%);
+    overflow: hidden;
 }
-#circle{
-width:50px;
-height:50px;
-border-radius:100px;
-border: 5px solid white;
-margin-left:25px;
-background-color:#f1c40f;
-
+/* Gradient, dodge, and dodge-area areto make the MATRIX logo so I will be using blue, yellow, and green*/ 
+.gradient{
+    background: linear-gradient(114.5793141156962deg, rgba(6, 227, 250,1) 4.927083333333334%,rgba(229, 151, 64,1) 97.84374999999999%);
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100%;
+    height:100%;
+    mix-blend-mode: multiply;
 }
+.dodge {
+    background: radial-gradient(circle,white,black 35%) center / 25% 25%;
+    position: absolute;
+    top:-100%;
+    left:-100%;
+    right:0;
+    bottom:0;
+    mix-blend-mode: color-dodge;
+    animation: dodge-area 3s linear infinite;
+}
+@keyframes dodge-area {
+    to {
+        transform: translate(50%,50%);
+    }
+    img{
+    max-width: 100%;
+    height: auto;
+}
+    
+}
+ 
+ </style>
+ 
+    <!-- navigation bar !-->
+    <nav class = "sidebar">
+        <ul>
+            <li><a href = "index.html" ><strong> Home</strong></a></li>
+            <li><a href = "badmemes.html" > <strong>badmemes</strong></a></li>
+             <li><a href = "House.html" > <strong>House Events</strong></a></li>
+             <li><a href = "Quizzes.html" > <strong>Quizzes</strong></a></li>
+             <li><a href = "iScav.html" > <strong>iScav</strong></a></li>
+             <li><a href = "memeChat.html" > <strong>Meme Chat</strong></a></li>
+             <li><a href = "dining.html" > <strong>24/7 Dining Hall Reviews</strong></a></li>
 
-
-</style>
-
-</html>
+         </ul>
+    <nav>
+    <!-- this shall create the logo. In the rest of the webpages I will be making the logo size smaller (about 190) I used https://www.youtube.com/watch?v=YiSzx0Cb8_8 to learn how to make the Matrix logo. Basically the tutorial showed me how to use CSS. !--> 
+    
+    <div class = "content">    
+    <div class="wrapper">
+        <h2> Welcome to </h2>
+        <h1 class = "neon-wrapper">I-House</h1>
+        
+        <!--
+        <div class="neon-wrapper">
+            <span class="txt">I-House</span>
+            <span class="gradient"></span>
+            <span class="dodge"></span>
+        </div>
+-->
+        
+    </div>
+    
+    <h2>Verified I-House</h2>
